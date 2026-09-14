@@ -1,6 +1,6 @@
 # Sharingan
 
-Custom ESP32-P4 camera and display development board with MIPI CSI, MIPI DSI, motion sensing, digital audio, USB-C, and LiPo power.
+A Custom embedded vision module with wireless capabilities based on the ESP32-P4 SOM (System On Module) with MIPI CSI, MIPI DSI, motion sensing, digital audio, USB-C, and LiPo Charging with BMS.
 
 ![Hardware revision](https://img.shields.io/badge/hardware-v1.3-0969da?style=flat-square)
 ![Review status](https://img.shields.io/badge/status-design%20review-f59e0b?style=flat-square)
