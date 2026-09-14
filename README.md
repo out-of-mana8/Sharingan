@@ -4,7 +4,6 @@ A Custom embedded vision module with wireless capabilities based on the ESP32-P4
 
 ![Hardware revision](https://img.shields.io/badge/hardware-v1.3-0969da?style=flat-square)
 ![Review status](https://img.shields.io/badge/status-design%20review-f59e0b?style=flat-square)
-![Fabrication status](https://img.shields.io/badge/fabrication-not%20approved-c62828?style=flat-square)
 
 > [!WARNING]
 > Hardware revision v1.3 is under engineering review and is **not approved for fabrication**. Review the [open design findings](docs/DESIGN_REVIEW.md) before manufacturing or assembly.
