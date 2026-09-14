@@ -1,35 +1,44 @@
-<div align="center">
-
 # Sharingan
 
-### ESP32-P4 camera and display development board
+Custom ESP32-P4 camera and display development board with MIPI CSI, MIPI DSI, motion sensing, digital audio, USB-C, and LiPo power.
 
-*“I still believe in your eyes.”*
+![Hardware revision](https://img.shields.io/badge/hardware-v1.3-0969da?style=flat-square)
+![Review status](https://img.shields.io/badge/status-design%20review-f59e0b?style=flat-square)
+![Fabrication status](https://img.shields.io/badge/fabrication-not%20approved-c62828?style=flat-square)
 
-[![ESP32-P4](https://img.shields.io/badge/MCU-ESP32--P4-E7352C?style=for-the-badge&logo=espressif&logoColor=white)](https://www.waveshare.com/wiki/ESP32-P4-Module)
-![Revision](https://img.shields.io/badge/Hardware-v1.3-0969DA?style=for-the-badge)
-![Camera](https://img.shields.io/badge/Camera-IMX708-7B2CBF?style=for-the-badge)
-![Status](https://img.shields.io/badge/Status-Design%20Review-F59E0B?style=for-the-badge)
+> [!WARNING]
+> Hardware revision v1.3 is under engineering review and is **not approved for fabrication**. Review the [open design findings](docs/DESIGN_REVIEW.md) before manufacturing or assembly.
 
-<img src="media/sharingan-top-3d.png" alt="Sharingan ESP32-P4 camera board assembled top render" width="760">
+## Overview
 
-A custom vision platform combining an ESP32-P4 application processor, MIPI CSI camera input, MIPI DSI display output, motion sensing, digital audio, USB-C, and battery power on one board.
+Sharingan is a custom carrier and peripheral board for the [Waveshare ESP32-P4-Module](https://www.waveshare.com/wiki/ESP32-P4-Module). It connects the ESP32-P4 to a two-lane camera interface, a two-lane display interface, an IMU, a digital microphone, USB-C, and a rechargeable single-cell LiPo power system.
 
-</div>
+### Hardware
 
----
-
-## Highlights
-
-| Subsystem | Hardware | Purpose |
+| Function | Device or interface | Notes |
 |---|---|---|
-| Compute | [Waveshare ESP32-P4-Module](https://www.waveshare.com/wiki/ESP32-P4-Module) | Main application processor with ESP32-C6 connectivity companion |
-| Vision | SpotPear IMX708 camera | Two-lane MIPI CSI image input |
-| Display | 15-pin FFC display connector | Two-lane MIPI DSI video output |
-| Motion | QMI8658C | Six-axis accelerometer and gyroscope |
-| Audio | INMP441 | Digital I²S microphone |
-| Power | USB-C and single-cell LiPo | Charging, source selection, and regulated rails |
-| Controls | P4 boot, P4 reset, and C6 boot | Direct hardware bring-up and recovery controls |
+| Main compute | Waveshare ESP32-P4-Module | ESP32-P4 application processor with ESP32-C6 connectivity companion |
+| Camera | SpotPear IMX708 | Two-lane MIPI CSI |
+| Display | 15-pin FFC connector | Two-lane MIPI DSI |
+| Motion sensing | QMI8658C | Six-axis accelerometer and gyroscope over I²C |
+| Audio input | INMP441 | Digital I²S MEMS microphone |
+| Host connection | USB-C | USB data and external power input |
+| Portable power | Single-cell LiPo | On-board charging and regulated power rails |
+| User controls | P4 boot, P4 reset, C6 boot | Bring-up and recovery buttons |
+
+## Block diagram
+
+```mermaid
+flowchart LR
+    USB[USB-C] --> PWR[Charger and power path]
+    BAT[1-cell LiPo] --> PWR
+    PWR --> RAILS[3.3 V / 2.8 V / 1.8 V / 1.1 V]
+    RAILS --> P4[Waveshare ESP32-P4 Module]
+    CAM[IMX708 Camera] -->|2-lane MIPI CSI| P4
+    P4 -->|2-lane MIPI DSI| DSI[Display FFC]
+    MIC[INMP441 Microphone] -->|I²S| P4
+    IMU[QMI8658C IMU] <-->|I²C| P4
+```
 
 ## Board views
 
@@ -51,45 +60,40 @@ A custom vision platform combining an ESP32-P4 application processor, MIPI CSI c
   <strong>Top copper and routing</strong>
 </div>
 
-## System overview
-
-```mermaid
-flowchart LR
-    USB[USB-C] --> PWR[Charger and power path]
-    BAT[1-cell LiPo] --> PWR
-    PWR --> RAILS[3.3 V / 2.8 V / 1.8 V / 1.1 V]
-    RAILS --> P4[Waveshare ESP32-P4 Module]
-    CAM[IMX708 Camera] -->|2-lane MIPI CSI| P4
-    P4 -->|2-lane MIPI DSI| DSI[Display FFC]
-    MIC[INMP441 Microphone] -->|I²S| P4
-    IMU[QMI8658C IMU] <-->|I²C| P4
-```
-
-## Project status
-
-| Milestone | State |
-|---|---|
-| Schematic captured | ✅ Complete |
-| Electrical netlist captured | ✅ Complete |
-| Schematic and connectivity review | ✅ Complete |
-| Stop-before-fabrication corrections | 🚧 Required |
-| PCB placement, routing, and stackup review | ⏳ Pending source files or Gerbers |
-| Fabrication release | ❌ Not approved yet |
-
-The current revision has a coherent architecture, but it is **not yet recommended for fabrication**. The highest-priority findings involve the ESP32-C6 antenna path, 3.3 V supply margin, charging/input-current assumptions, battery protection, and several interface and development-access details.
-
-Read the full **[schematic and netlist design review](docs/DESIGN_REVIEW.md)** before revising or manufacturing the board.
-
 ## Design files
 
-| Artifact | Description |
+| File | Description |
 |---|---|
 | [Schematic PDF](design/ESP32P4_Camera_Board_Schematic_2026-08-30.pdf) | EasyEDA schematic reviewed on 2026-08-30 |
 | [TEL netlist](design/Netlist_PCB1_2026-08-30.tel) | Electrical connectivity export used for review |
-| [Board drawing](drawing.pdf) | Existing board drawing export |
-| [Engineering review](docs/DESIGN_REVIEW.md) | Findings, evidence, impact, and recommended corrections |
+| [Board drawing](drawing.pdf) | Board drawing export |
+| [Design review](docs/DESIGN_REVIEW.md) | Electrical findings, supporting evidence, and required corrections |
 
-## Repository layout
+Editable PCB source, Gerbers, drill files, fabrication outputs, stackup information, and design-rule settings have not yet been added.
+
+## Review status
+
+| Check | Status |
+|---|---|
+| Schematic captured | Complete |
+| Electrical netlist captured | Complete |
+| Schematic and connectivity review | Complete |
+| Stop-before-fabrication corrections | Required |
+| Placement, routing, and stackup review | Pending PCB source or Gerbers |
+| Fabrication release | Not approved |
+
+### Required before fabrication
+
+- Resolve the ESP32-C6 antenna path.
+- Re-evaluate the 3.3 V regulator capacity, dropout, and thermal margin.
+- Verify USB input-current and battery-charging assumptions.
+- Add or document the required LiPo protection strategy.
+- Close the remaining interface-voltage, reset, debug-access, decoupling, and MIPI-routing findings.
+- Review the physical PCB files for stackup, return paths, RF geometry, thermal copper, footprints, and mechanical clearances.
+
+See [DESIGN_REVIEW.md](docs/DESIGN_REVIEW.md) for the complete review; the list above is only a summary.
+
+## Repository contents
 
 ```text
 Sharingan/
@@ -106,17 +110,17 @@ Sharingan/
 └── README.md
 ```
 
-## Next revision
+## Revision information
 
-- Resolve every stop-before-fabrication item in the engineering review.
-- Add the editable PCB source, Gerbers, drill files, stackup, and design rules.
-- Verify MIPI routing, return paths, power integrity, thermal copper, RF layout, footprints, and mechanical clearances.
-- Run bring-up tests for every power rail and peripheral before full assembly.
+| Item | Value |
+|---|---|
+| Hardware revision | v1.3 |
+| Review date | 2026-08-30 |
+| Designer | Tausif Samin |
+| Current phase | Design review |
 
----
+## References
 
-<div align="center">
-
-Designed by **Tausif Samin** · Sharingan hardware revision **v1.3**
-
-</div>
+- [Waveshare ESP32-P4-Module wiki](https://www.waveshare.com/wiki/ESP32-P4-Module)
+- [ESP32-P4-Module schematic and datasheet](https://files.waveshare.com/wiki/ESP32-P4-Module/ESP32-P4-Module-datasheet.pdf)
+- [Espressif ESP32-P4 hardware design guidelines](https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32p4/index.html)
