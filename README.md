@@ -9,6 +9,26 @@ Custom ESP32-P4 camera and display development board with MIPI CSI, MIPI DSI, mo
 > [!WARNING]
 > Hardware revision v1.3 is under engineering review and is **not approved for fabrication**. Review the [open design findings](docs/DESIGN_REVIEW.md) before manufacturing or assembly.
 
+## Board views
+
+<table>
+  <tr>
+    <td width="50%" align="center">
+      <img src="media/sharingan-top-3d.png" alt="Sharingan assembled top-side render" width="600" height="821"><br>
+      <strong>Assembled 3D render</strong>
+    </td>
+    <td width="50%" align="center">
+      <img src="media/sharingan-top-2d.png" alt="Sharingan top-side component placement" width="600" height="821"><br>
+      <strong>Top-side placement</strong>
+    </td>
+  </tr>
+</table>
+
+<div align="center">
+  <img src="media/sharingan-top-layer.png" alt="Sharingan top copper routing view" width="900"><br>
+  <strong>Top copper and routing</strong>
+</div>
+
 ## Overview
 
 Sharingan is a custom carrier and peripheral board for the [Waveshare ESP32-P4-Module](https://www.waveshare.com/wiki/ESP32-P4-Module). It connects the ESP32-P4 to a two-lane camera interface, a two-lane display interface, an IMU, a digital microphone, USB-C, and a rechargeable single-cell LiPo power system.
@@ -39,26 +59,6 @@ flowchart LR
     MIC[INMP441 Microphone] -->|I²S| P4
     IMU[QMI8658C IMU] <-->|I²C| P4
 ```
-
-## Board views
-
-<table>
-  <tr>
-    <td width="50%" align="center">
-      <img src="media/sharingan-top-3d.png" alt="Sharingan assembled top-side render" width="100%"><br>
-      <strong>Assembled 3D render</strong>
-    </td>
-    <td width="50%" align="center">
-      <img src="media/sharingan-top-2d.png" alt="Sharingan top-side component placement" width="100%"><br>
-      <strong>Top-side placement</strong>
-    </td>
-  </tr>
-</table>
-
-<div align="center">
-  <img src="media/sharingan-top-layer.png" alt="Sharingan top copper routing view" width="900"><br>
-  <strong>Top copper and routing</strong>
-</div>
 
 ## Design files
 
