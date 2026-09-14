@@ -36,15 +36,20 @@ A custom vision platform combining an ESP32-P4 application processor, MIPI CSI c
 <table>
   <tr>
     <td width="50%" align="center">
+      <img src="media/sharingan-top-3d.png" alt="Sharingan assembled top-side render" width="100%"><br>
+      <strong>Assembled 3D render</strong>
+    </td>
+    <td width="50%" align="center">
       <img src="media/sharingan-top-2d.png" alt="Sharingan top-side component placement" width="100%"><br>
       <strong>Top-side placement</strong>
     </td>
-    <td width="50%" align="center">
-      <img src="media/sharingan-top-layer.png" alt="Sharingan top copper routing view" width="100%"><br>
-      <strong>Top copper and routing</strong>
-    </td>
   </tr>
 </table>
+
+<div align="center">
+  <img src="media/sharingan-top-layer.png" alt="Sharingan top copper routing view" width="900"><br>
+  <strong>Top copper and routing</strong>
+</div>
 
 ## System overview
 
